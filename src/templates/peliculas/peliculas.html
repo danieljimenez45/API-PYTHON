@@ -1,0 +1,35 @@
+{% extends "fragments/base.html" %}
+{% block title %}Peliculas{% endblock %}
+
+{% block content %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>TITULO</th>
+        <th>GENERO</th>
+        <th>DURACION</th>
+        <th>SINOPSIS</th>
+        <th>ACTORES PRINCIPALES</th>
+        <th>ACTORES SECUNDARIOS</th>
+        <th>DIRECTOR</th>
+        <th>DETALLES</th>
+    </tr>
+    {% for pelicula in peliculas %}
+    <tr>
+        <td>{{ pelicula.id }}</td>
+        <td>{{ pelicula.titulo }}</td>
+        <td>{{ pelicula.genero }}</td>
+        <td>{{ pelicula.duracion }}</td>
+        <td>{{ pelicula.sinopsis }}</td>
+        <td>{{ pelicula.actores_principales }}</td>
+        <td>{{ pelicula.actores_secundarios }}</td>
+        <td>{{ pelicula.director }}</td>
+        <td><a href="/peliculas/{{ pelicula.id }}">Ver detalles</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+{% block footer %}
+Autor: Daniel Jiménez
+{% endblock %}

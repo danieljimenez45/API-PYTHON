@@ -1,0 +1,55 @@
+### Con la extension REST Client funciona como los crud de springboot
+
+@baseUrl = http://127.0.0.1:3000
+
+###
+### Obtener todas las películas
+GET {{baseUrl}}/peliculas
+
+###
+### Obtener película por ID
+GET {{baseUrl}}/peliculas/1
+
+###
+### Crear una nueva película
+POST {{baseUrl}}/peliculas
+Content-Type: application/json
+
+{
+  "titulo": "A todo gas",
+  "genero": "Acción",
+  "duracion": 106,
+  "sinopsis": "Un policía se infiltra en una banda de carreras ilegales",
+  "actores_principales": "Vin Diesel, Paul Walker",
+  "actores_secundarios": "Michelle Rodriguez, Jordana Brewster",
+  "director": "Rob Cohen"
+}
+
+###
+### Actualizar película completa (PUT)
+PUT {{baseUrl}}/peliculas/6
+Content-Type: application/json
+
+{
+  "titulo": "A todo gas (Updated)",
+  "genero": "Acción (Updated)",
+  "duracion": 106,
+  "sinopsis": "Un policía se infiltra en una banda de carreras ilegales (Updated)",
+  "actores_principales": "Vin Diesel, Paul Walker (Updated)",
+  "actores_secundarios": "Michelle Rodriguez, Jordana Brewster (Updated)",
+  "director": "Rob Cohen (Updated)"
+}
+
+###
+### Actualizar película parcialmente (PATCH)
+PATCH {{baseUrl}}/peliculas/1
+Content-Type: application/json
+
+{
+  "titulo": "El Padrino (PATCH)",
+  "duracion": 175
+}
+
+###
+### Eliminar película
+DELETE {{baseUrl}}/peliculas/6

@@ -1,0 +1,12 @@
+{% extends "fragments/base.html" %}
+{% block title %}Página index{% endblock %}
+
+{% block content %}
+    <h1>Web de Series</h1>
+    <p><a href="{{ url_for('static', path='static.html') }}">Contenido estático</a></p>
+    <p><a href="{{ url_for('ver_peliculas') }}">Ver lista peliculas</a></p>
+    <p><a href="/peliculas/new">Crear pelicula</a></p>
+{% endblock %}
+{% block footer %}
+FOOTER desde Index
+{% endblock %}
