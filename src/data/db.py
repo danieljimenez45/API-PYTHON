@@ -1,14 +1,18 @@
+from dotenv import load_dotenv
+import os
 from sqlmodel import create_engine, SQLModel, Session
 from models.pelicula import Pelicula
 
-db_user: str = "quevedo"  
-db_password: str =  "1234"
-db_server: str = "fastapi-db" 
-db_port: int = 3306  
-db_name: str = "peliculasdb"  
+load_dotenv()
+
+db_user: str = os.getenv("DB_USER")  
+db_password: str = os.getenv("DB_PASSWORD")
+db_server: str = os.getenv("DB_SERVER", "fastapi-db")
+db_port: int = os.getenv("DB_PORT", 3306)  
+db_name: str = os.getenv("DB_NAME", "peliculasdb")  
 
 DATABASE_URL = f"mysql+pymysql://{db_user}:{db_password}@{db_server}:{db_port}/{db_name}"
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(os.getenv("DB_URL", DATABASE_URL), echo=True)
 
 def get_session():
     with Session(engine) as session:

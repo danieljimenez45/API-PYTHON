@@ -11,8 +11,8 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy the application code to the working directory (for build time)
-# This will be overridden by the volume mount in docker-compose
 COPY ./src /app
+COPY .env /app
 
 # Expose the port on which the application will run
 EXPOSE 8000
@@ -20,9 +20,5 @@ EXPOSE 8000
 # Set PYTHONPATH to ensure modules can be found
 ENV PYTHONPATH=/app
 
-# Copy entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-# Run the FastAPI application using uvicorn server
-ENTRYPOINT ["/entrypoint.sh"]
+# Run the FastAPI application using uvicorn server (como en el ejemplo del profesor)
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
