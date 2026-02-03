@@ -7,7 +7,6 @@ load_dotenv()
 
 db_user: str = os.getenv("DB_USER")  
 db_password: str = os.getenv("DB_PASSWORD")
-#db_server: str = os.getenv("DB_SERVER", "localhost")
 db_server: str = os.getenv("DB_SERVER", "fastapi-db-peliculas")
 db_port: int = int(os.getenv("DB_PORT", 5432))  
 db_name: str = os.getenv("DB_NAME", "peliculasdb")  
