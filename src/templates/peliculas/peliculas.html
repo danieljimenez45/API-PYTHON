@@ -2,6 +2,8 @@
 {% block title %}Peliculas{% endblock %}
 
 {% block content %}
+<h2>Listado de películas</h2>
+<div class="table-wrap">
 <table>
     <tr>
         <th>ID</th>
@@ -28,6 +30,8 @@
     </tr>
     {% endfor %}
 </table>
+</div>
+<p><a href="/peliculas/new" class="btn">Nueva película</a> <a href="/" class="back-link">← Inicio</a></p>
 {% endblock %}
 
 {% block footer %}

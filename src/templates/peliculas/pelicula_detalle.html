@@ -2,17 +2,19 @@
 {% block title %}Peliculas{% endblock %}
 
 {% block content %}
-<h2> Detalle de la pelicula {{ pelicula.id }}</h2>
-<ul>
-    <li> Título: {{ pelicula.titulo }}</li>
-    <li> Genero: {{ pelicula.genero }}</li>
-    <li> Duración: {{ pelicula.duracion }}</li>
-    <li> Sinopsis: {{ pelicula.sinopsis }}</li>
-    <li> Actores Principales: {{ pelicula.actores_principales }}</li>
-    <li> Actores Secundarios: {{ pelicula.actores_secundarios }}</li>
-    <li> Director: {{ pelicula.director }}</li>
-</ul>
-
+<div class="pelicula-detail">
+    <h2>Detalle de la película</h2>
+    <ul class="detail-list">
+        <li><span class="label">Título</span> {{ pelicula.titulo }}</li>
+        <li><span class="label">Género</span> {{ pelicula.genero }}</li>
+        <li><span class="label">Duración</span> {{ pelicula.duracion }} min</li>
+        <li><span class="label">Sinopsis</span> {{ pelicula.sinopsis }}</li>
+        <li><span class="label">Actores principales</span> {{ pelicula.actores_principales }}</li>
+        <li><span class="label">Actores secundarios</span> {{ pelicula.actores_secundarios }}</li>
+        <li><span class="label">Director</span> {{ pelicula.director }}</li>
+    </ul>
+    <a href="/peliculas" class="back-link">← Volver a la lista</a>
+</div>
 {% endblock %}
 
 {% block footer %}
