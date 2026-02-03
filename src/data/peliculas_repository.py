@@ -1,5 +1,5 @@
 from sqlmodel import Session, select
-from models.pelicula import Pelicula
+from src.models.pelicula import Pelicula
 
 
 class PeliculasRepository:

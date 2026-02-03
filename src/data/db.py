@@ -1,13 +1,13 @@
 from dotenv import load_dotenv
 import os
 from sqlmodel import create_engine, SQLModel, Session
-from models.pelicula import Pelicula
+from src.models.pelicula import Pelicula
 
 load_dotenv()
 
 db_user: str = os.getenv("DB_USER")  
 db_password: str = os.getenv("DB_PASSWORD")
-db_server: str = os.getenv("DB_SERVER", "fastapi-db")
+db_server: str = os.getenv("DB_SERVER", "localhost")
 db_port: int = os.getenv("DB_PORT", 3306)  
 db_name: str = os.getenv("DB_NAME", "peliculasdb")  
 

@@ -7,7 +7,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.requests import Request
 from sqlmodel import Session, select
 
-from models.pelicula import (
+from src.models.pelicula import (
     Pelicula,
     PeliculaCreate,
     PeliculaUpdate,
@@ -15,9 +15,9 @@ from models.pelicula import (
     map_create_to_pelicula,
     map_pelicula_to_response,
 )
-from data.db import init_db, get_session
-from data.peliculas_repository import PeliculasRepository
-from routers.api_peliculas_router import router as api_peliculas_router
+from src.data.db import init_db, get_session
+from src.data.peliculas_repository import PeliculasRepository
+from src.routers.api_peliculas_router import router as api_peliculas_router
 
 import uvicorn
 
@@ -31,8 +31,8 @@ SessionDep = Annotated[Session, Depends(get_session)]
 
 app = FastAPI(lifespan=lifespan)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="src/static"), name="static")
+templates = Jinja2Templates(directory="src/templates")
 
 app.include_router(api_peliculas_router)
 

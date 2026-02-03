@@ -1,15 +1,15 @@
 from fastapi import APIRouter, HTTPException , Depends
 from typing import Annotated
-from models.pelicula import (
+from src.models.pelicula import (
     PeliculaCreate,
     PeliculaUpdate,
     PeliculaResponse,
     map_create_to_pelicula,
     map_pelicula_to_response,
 )
-from data.peliculas_repository import PeliculasRepository
+from src.data.peliculas_repository import PeliculasRepository
 from sqlmodel import Session
-from data.db import  get_session
+from src.data.db import  get_session
 
 router = APIRouter(prefix="/api/peliculas", tags= ["peliculas"])
 
