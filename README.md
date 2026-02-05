@@ -92,6 +92,10 @@ El archivo `.env` define las variables necesarias para conectarse a PostgreSQL (
 En `data/db.py` se construye `DATABASE_URL` a partir de estas variables, y se permite sobreescribirla directamente con `DB_URL` si está definida.
 
 > **Importante:** en producción (por ejemplo, en Render) hay que definir estas variables en el panel de variables de entorno del proveedor, sin subir `.env` público si contiene credenciales reales.
+>
+> En el despliegue en Render de este proyecto se ha utilizado, por ejemplo, el siguiente valor para `DB_URL` (cadena de conexión proporcionada por el proveedor de PostgreSQL gestionado):
+>
+> `postgresql+psycopg2://quevedo:axBk60gJa4ClinFucI8PdybmGIy73aG9@dpg-d61q268nputs7390vg80-a/peliculasdb_vdcr`
 
 ---
 
