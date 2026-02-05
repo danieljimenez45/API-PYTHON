@@ -74,6 +74,21 @@ En `data/db.py` se construye `DATABASE_URL` a partir de estas variables usando e
 
 ---
 
+## Ramas del repositorio
+
+Este proyecto está organizado en varias ramas de GitHub, cada una correspondiente a distintos ejercicios:
+
+- **Rama ejercicios 1 y 2**:  
+  `https://github.com/danieljimenez45/API-PYTHON/tree/EJERCICIOS-1%262`
+
+- **Rama ejercicio 3**:  
+  `https://github.com/danieljimenez45/API-PYTHON/tree/EJERCICIO-3`
+
+- **Rama ejercicio 4**:  
+  `https://github.com/danieljimenez45/API-PYTHON/tree/EJERCICIO-4`
+
+---
+
 ## Estructura del proyecto
 
 ```text
@@ -111,5 +126,153 @@ En `data/db.py` se construye `DATABASE_URL` a partir de estas variables usando e
 - `models/pelicula.py`: definiciones del modelo de dominio (`Pelicula`), DTOs (`PeliculaCreate`, `PeliculaUpdate`, `PeliculaResponse`) y funciones de mapeo.
 - `routers/api_peliculas_router.py`: router de FastAPI con todas las rutas de la API REST para películas.
 - `templates/` + `static/`: vistas HTML (Jinja2) y recursos estáticos (CSS) para la parte web.
+
+---
+
+## Modelos y DTOs
+
+En `models/pelicula.py` se definen:
+
+- **Modelo de tabla** (`Pelicula`):  
+  Representa la entidad película en la base de datos (campos: `id`, `titulo`, `genero`, `duracion`, `sinopsis`, `actores_principales`, `actores_secundarios`, `director`).
+
+- **DTOs**:
+  - `PeliculaCreate`: datos necesarios para crear una nueva película.
+  - `PeliculaUpdate`: todos los campos opcionales para actualizaciones parciales.
+  - `PeliculaResponse`: representación de salida para la API.
+
+- **Mappers**:
+  - `map_pelicula_to_response`
+  - `map_create_to_pelicula`
+
+---
+
+## Repositorio de datos
+
+En `data/peliculas_repository.py` se implementa la lógica de acceso a datos usando `Session`:
+
+- `get_all_peliculas()`: devuelve una lista de todas las películas.
+- `get_pelicula(pelicula_id)`: devuelve una película por `id` o `None` si no existe.
+- `create_pelicula(pelicula)`: inserta y devuelve la película creada.
+- `update_pelicula(pelicula_id, pelicula_data)`: aplica cambios a una película existente.
+- `delete_pelicula(pelicula_id)`: elimina una película por `id`.
+
+---
+
+## Rutas de la API
+
+El archivo `src/routers/api_peliculas_router.py` define un router con prefijo `/api/peliculas` y tag `peliculas`.
+
+### Endpoints principales
+
+- **GET `/api/peliculas/`** → lista de películas (`PeliculaResponse`).
+- **POST `/api/peliculas/`** → creación de película (`PeliculaCreate` → `PeliculaResponse`, código `201`).
+- **GET `/api/peliculas/{pelicula_id}`** → detalle por `id` (404 si no existe).
+- **DELETE `/api/peliculas/{pelicula_id}`** → borrado (204 si todo va bien, 404 si no existe).
+- **PATCH `/api/peliculas/{pelicula_id}`** → actualización parcial (`PeliculaUpdate`).
+- **PUT `/api/peliculas/{pelicula_id}`** → reemplazo completo (`PeliculaCreate`).
+
+---
+
+## Rutas HTML y plantillas
+
+En `main.py` se configuran:
+
+- Montaje de estáticos: `app.mount("/static", StaticFiles(directory="static"), name="static")`.
+- Plantillas Jinja2: `templates = Jinja2Templates(directory="templates")`.
+- Inclusión del router de API: `app.include_router(api_peliculas_router)`.
+
+### Rutas HTML
+
+- **GET `/`**  
+  Devuelve `index.html` (página principal).
+
+- **GET `/peliculas`**  
+  Lista todas las películas y renderiza `peliculas/peliculas.html`.
+
+- **GET `/peliculas/new`**  
+  Muestra el formulario `peliculas/pelicula_form.html` para crear una película.
+
+- **POST `/pelicula/new`**  
+  Procesa el formulario, crea una película y redirige a `/peliculas`.
+
+- **GET `/peliculas/{pelicula_id}`**  
+  Muestra el detalle de una película en `peliculas/pelicula_detalle.html` (404 si no existe).
+
+---
+
+## Instalación y ejecución en local (sin Docker)
+
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/danieljimenez45/API-PYTHON.git
+   cd API-PYTHON
+   git checkout EJERCICIO-3
+   ```
+
+2. **Crear y activar un entorno virtual (opcional pero recomendado)**
+   ```bash
+   python -m venv .venv
+   .venv\Scripts\activate   # En Windows
+   # o
+   source .venv/bin/activate  # En Linux/Mac
+   ```
+
+3. **Instalar dependencias**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Configurar variables de entorno**
+   - Crear un archivo `.env` en la raíz (si no existe) basándote en el ejemplo incluido.  
+   - Ajustar `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `DB_SERVER`, `DB_PORT` según tu entorno local.
+
+5. **Levantar MySQL (si no usas Docker, necesitarás tenerlo instalado y crear la base de datos con los datos del `.env`).**
+
+6. **Ejecutar la aplicación**
+   ```bash
+   uvicorn main:app --host 127.0.0.1 --port 3006 --reload
+   ```
+
+7. **Probar en el navegador**
+   - Web HTML:
+     - `http://localhost:3006/`
+     - `http://localhost:3006/peliculas`
+   - Documentación de la API:
+     - `http://localhost:3006/docs`
+     - `http://localhost:3006/redoc`
+
+---
+
+## Ejecución con Docker + docker-compose (MySQL)
+
+1. **Asegúrate de tener Docker y Docker Compose instalados.**
+
+2. **Opción A – Usar credenciales fijas (`docker-compose.yml`)**
+   ```bash
+   docker compose up --build
+   # En arranques posteriores:
+   docker compose up
+   ```
+
+3. **Opción B – Usar variables de entorno (`docker-compose-env.yml`)**
+   - Configura el archivo `.env` con las credenciales de la base de datos.
+   ```bash
+   docker compose -f docker-compose-env.yml up --build
+   # En arranques posteriores:
+   docker compose -f docker-compose-env.yml up
+   ```
+
+4. **Acceso a la aplicación en Docker**
+   - Aplicación FastAPI: `http://localhost:8000/`
+   - Documentación Swagger: `http://localhost:8000/docs`
+   - Redoc: `http://localhost:8000/redoc`
+
+5. **Parar los contenedores**
+   ```bash
+   docker compose down
+   # o, si usas el compose con env:
+   docker compose -f docker-compose-env.yml down
+   ```
 
 ---
