@@ -23,6 +23,18 @@ Incluye:
 
 ---
 
+## Ramas relacionadas
+
+Este proyecto tiene varias ramas para distintos ejercicios:
+
+- **Ejercicios 1 y 2**: `EJERCICIOS-1&2`
+- **Ejercicio 3 (esta rama)**: `EJERCICIO-3`
+- **Ejercicio 4 (PostgreSQL + Render)**: `EJERCICIO-4`
+
+Cada rama tiene su propia configuración de base de datos y, en el caso del ejercicio 4, además despliegue en Render.
+
+---
+
 ## Ramas del repositorio
 
 Este proyecto está organizado en varias ramas de GitHub, cada una correspondiente a distintos ejercicios:
@@ -131,27 +143,6 @@ Este proyecto usa **`pymysql`** como driver de MySQL, tal y como se ve en `requi
   - `pymysql`
 - En `src/data/db.py`:
   - `DATABASE_URL = f"mysql+pymysql://{db_user}:{db_password}@{db_server}:{db_port}/{db_name}"`
-
-### ¿Por qué `pymysql`?
-
-- **Instalación sencilla y sin compilación**:  
-  `pymysql` es un driver 100 % Python, por lo que no requiere compilador ni librerías nativas adicionales. Esto simplifica la instalación en distintos sistemas operativos y en Docker.
-
-- **Compatibilidad con SQLAlchemy/SQLModel**:  
-  Está soportado por SQLAlchemy y, por extensión, por SQLModel, por lo que la integración es directa usando el dialecto `mysql+pymysql`.
-
-- **Adecuado para entornos docentes y de ejemplo**:  
-  Al no necesitar dependencias de sistema, reduce la fricción para los alumnos al montar el entorno.
-
-### ¿Por qué no otros drivers?
-
-- **`mysqlclient`** (basado en `MySQLdb`):  
-  Es muy eficiente, pero requiere compilación y librerías nativas (`libmysqlclient`, etc.), lo que suele generar más problemas de instalación en Windows y entornos heterogéneos.
-
-- **Drivers async como `aiomysql`**:  
-  Son útiles en aplicaciones completamente asíncronas a nivel de driver. En este proyecto se utiliza el stack síncrono tradicional de SQLAlchemy/SQLModel, por lo que `pymysql` encaja mejor y mantiene el ejemplo más sencillo.
-
-En resumen, **`pymysql`** se ha elegido por su facilidad de instalación, buena compatibilidad con SQLModel/SQLAlchemy y porque reduce problemas de entorno en ejercicios de clase.
 
 ---
 
